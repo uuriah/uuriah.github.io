@@ -213,9 +213,18 @@
       background: var(--text-muted);
     }
 
+    /* ---- PROFILE PHOTO ---- */
+    .profile-photo {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 20px;
+    }
+
     /* ---- PHOTO DIVIDER ---- */
     .photo-divider {
-      height: 320px;
+      height: 400px;
       position: relative;
       overflow: hidden;
     }
@@ -236,15 +245,15 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      opacity: 0.5;
-      filter: saturate(0.6);
+      /* opacity: 0.5;
+      filter: saturate(0.6); */
       transition: opacity 0.4s, filter 0.4s;
     }
 
-    .photo-placeholder:hover {
+    /* .photo-placeholder:hover {
       opacity: 0.65;
       filter: saturate(0.8);
-    }
+    } */
 
     .photo-divider-overlay {
       position: absolute;
@@ -385,51 +394,165 @@
 
     .project-screenshots {
       background: var(--surface);
-      padding: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 280px;
       position: relative;
+      min-height: 280px;
       overflow: hidden;
+      cursor: pointer;
     }
 
-    .screenshot-container {
+    .project-preview {
       width: 100%;
       height: 100%;
-      display: flex;
-      gap: 0.75rem;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .screenshot {
-      border-radius: 4px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-      max-width: 45%;
-      max-height: 220px;
+      min-height: 280px;
       object-fit: cover;
-      transition: transform 0.3s ease;
+      display: block;
+      transition: transform 0.4s ease, opacity 0.3s ease;
     }
 
-    .screenshot:first-child { transform: rotate(-2deg); }
-    .screenshot:last-child { transform: rotate(2deg); }
+    .project-card:hover .project-preview {
+      transform: scale(1.03);
+      opacity: 0.85;
+    }
 
-    .project-card:hover .screenshot:first-child { transform: rotate(-1deg) translateY(-4px); }
-    .project-card:hover .screenshot:last-child { transform: rotate(1deg) translateY(-4px); }
-
-    .screenshot-placeholder {
+    .preview-placeholder {
       width: 100%;
-      height: 220px;
-      border: 1px dashed var(--border);
-      border-radius: 4px;
+      max-height: 200px;
+      min-height: 200px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--text-muted);
       font-size: 11px;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .photo-count-badge {
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+      background: rgba(14,14,14,0.8);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.7rem;
+      pointer-events: none;
+      backdrop-filter: blur(4px);
+    }
+
+    .view-gallery-hint {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(14,14,14,0.5);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .project-card:hover .view-gallery-hint { opacity: 1; }
+
+    /* ---- LIGHTBOX ---- */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(0,0,0,0.95);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lightbox-inner {
+      position: relative;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .lightbox-img {
+      max-width: 85vw;
+      max-height: 75vh;
+      object-fit: contain;
+      border: 1px solid var(--border);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.8);
+    }
+
+    .lightbox-controls {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .lightbox-btn {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.6rem 1.2rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .lightbox-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .lightbox-counter {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--text-muted);
+      min-width: 60px;
+      text-align: center;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -3rem;
+      right: 0;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .lightbox-close:hover { color: var(--accent); }
+
+    .lightbox-caption {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      font-family: var(--serif);
+      font-style: italic;
     }
 
     .project-info {
@@ -496,7 +619,7 @@
 
     /* ---- SECOND PHOTO DIVIDER ---- */
     .photo-divider-2 {
-      height: 280px;
+      height: 400px;
       position: relative;
       overflow: hidden;
     }
@@ -619,11 +742,15 @@
     <div class="hero-bg"></div>
     <div class="hero-content">
       <p class="hero-eyebrow">Software Developer — Rancho Cucamonga, CA</p>
-      <h1 class="hero-name">Uriah<br /><em>Foley</em></h1>
+      <div style="display: flex; align-items: center;">
+        <img class="profile-photo" src="images/profile_photo.jpeg" alt="Profile picture" />
+        <h1 class="hero-name">Uriah<br /><em>Foley</em></h1>
+      </div>
+      
+      
       <p class="hero-tagline">
-        Building thoughtful software across the full stack. 
-        Former Union Pacific engineer turned developer — 
-        I bring precision and calm under pressure to everything I build.
+        Recently made the jump from a seven year career at Union Pacific to software development.
+        I'm at the beginning of this chapter and I'm eager to continue growing.
       </p>
       <div class="hero-cta">
         <a href="#projects" class="btn-primary">View Projects</a>
@@ -638,7 +765,7 @@
   <div class="photo-divider">
     <div class="photo-divider-inner">
       <div style="color: var(--text-muted); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;">
-        <img class="photo-placeholder" src="images/tonquin_beach.png" alt="Tonquin Beach, British Columbia" />
+        <img class="photo-placeholder" src="images/tonquin_beach.png" alt="Tonquin beach" />
       </div>
     </div>
     <div class="photo-divider-overlay"></div>
@@ -650,12 +777,12 @@
     <p class="section-label reveal">About</p>
     <div class="about-grid">
       <div>
-        <h2 class="about-heading reveal">Building things<br />that <em>actually work</em></h2>
+        <h2 class="about-heading reveal"></h2>
         <p class="about-text reveal">
-          I am a <strong>recent Computer Science graduate from Cal Poly Pomona</strong> 
+          I'm a <strong>recent Computer Science graduate from Cal Poly Pomona</strong> 
           with a 3.95 GPA, and an unconventional path to get here. I spent seven years 
           as a licensed conductor and engineer at <strong>Union Pacific Railroad</strong>, 
-          leading crews responsible for moving millions of dollars in freight across Southern California.
+          leading crews responsible for moving millions of dollars in freight daily.
         </p>
         <p class="about-text reveal">
           I made a deliberate choice to leave that career and pursue software development 
@@ -664,9 +791,9 @@
         </p>
         <p class="about-text reveal">
           I have shipped a <strong>published iOS app</strong>, deployed a 
-          <strong>REST API to production on AWS</strong>, and built a 
+          <strong>web application to production on AWS</strong>, and built a 
           <strong>deep learning pipeline</strong> for wildfire prediction. 
-          I am looking for a junior role where I can keep growing fast.
+          I'm looking for a junior role where I can keep growing fast.
         </p>
       </div>
       <div class="reveal">
@@ -702,12 +829,15 @@
 
     <!-- Project 1: Honeycomb -->
     <div class="project-card reveal">
-      <div class="project-screenshots">
-        <div class="screenshot-container">
-          <!-- Replace with: <img class="screenshot" src="honeycomb-screenshot-1.png" alt="Honeycomb app screenshot" /> -->
-          <!-- Replace with: <img class="screenshot" src="honeycomb-screenshot-2.png" alt="Honeycomb app screenshot" /> -->
-          <div class="screenshot-placeholder">Add your screenshots here</div>
-        </div>
+      <div class="project-screenshots" onclick="openLightbox('honeycomb')">
+        <!--
+          TO ADD YOUR PREVIEW IMAGE:
+          Replace the .preview-placeholder div with:
+          <img class="project-preview" src="images/honeycomb-1.png" alt="Honeycomb app" />
+        -->
+        <img class="project-preview" src="images/honeycomb_logo.png" alt="Honeycomb app" />
+        <div class="view-gallery-hint">View Gallery</div>
+        <div class="photo-count-badge">6 photos</div>
       </div>
       <div class="project-info">
         <p class="project-number">01 / iOS Application</p>
@@ -730,11 +860,18 @@
 
     <!-- Project 2: Recipe -->
     <div class="project-card reverse reveal">
-      <div class="project-screenshots">
-        <div class="screenshot-container">
-          <!-- Replace with your recipe site screenshots -->
-          <div class="screenshot-placeholder">Add your screenshots here</div>
+      <div class="project-screenshots" onclick="openLightbox('recipe')">
+        <!--
+          TO ADD YOUR PREVIEW IMAGE:
+          Replace the .preview-placeholder div with:
+          <img class="project-preview" src="images/recipe-1.png" alt="Recipe site" />
+        -->
+        <div class="preview-placeholder">
+          <span>Add preview image</span>
+          <span style="font-size:9px; opacity:0.5">recipe-1.png</span>
         </div>
+        <div class="view-gallery-hint">View Gallery</div>
+        <div class="photo-count-badge">4 photos</div>
       </div>
       <div class="project-info">
         <p class="project-number">02 / Web Application</p>
@@ -751,17 +888,24 @@
           <span class="tag">GitHub Actions</span>
           <span class="tag">Python</span>
         </div>
-        <a href="https://github.com/uuriah" class="project-link">View on GitHub</a>
+        <a href="https://github.com/ByteWorxx/byte-to-eat" class="project-link">View on GitHub</a>
       </div>
     </div>
 
     <!-- Project 3: Wildfire -->
     <div class="project-card reveal">
-      <div class="project-screenshots">
-        <div class="screenshot-container">
-          <!-- Replace with wildfire project images -->
-          <div class="screenshot-placeholder">Add your screenshots here</div>
+      <div class="project-screenshots" onclick="openLightbox('wildfire')">
+        <!--
+          TO ADD YOUR PREVIEW IMAGE:
+          Replace the .preview-placeholder div with:
+          <img class="project-preview" src="images/wildfire-1.png" alt="Wildfire model" />
+        -->
+        <div class="preview-placeholder">
+          <span>Add preview image</span>
+          <span style="font-size:9px; opacity:0.5">wildfire-1.png</span>
         </div>
+        <div class="view-gallery-hint">View Gallery</div>
+        <div class="photo-count-badge">4 photos</div>
       </div>
       <div class="project-info">
         <p class="project-number">03 / Machine Learning</p>
@@ -775,7 +919,6 @@
           <span class="tag">Python</span>
           <span class="tag">PyTorch</span>
           <span class="tag">wGAN</span>
-          <span class="tag">CUDA</span>
           <span class="tag">GIS</span>
         </div>
         <a href="https://github.com/uuriah/CS4990_Wildfire_Spread" class="project-link">View on GitHub</a>
@@ -784,23 +927,37 @@
 
   </section>
 
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="handleLightboxClick(event)">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" onclick="closeLightbox()">Close ✕</button>
+      <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+      <p class="lightbox-caption" id="lightbox-caption"></p>
+      <div class="lightbox-controls">
+        <button class="lightbox-btn" onclick="prevImage()">← Prev</button>
+        <span class="lightbox-counter" id="lightbox-counter">1 / 3</span>
+        <button class="lightbox-btn" onclick="nextImage()">Next →</button>
+      </div>
+    </div>
+  </div>
+
   <!-- PHOTO DIVIDER 2 -->
   <div class="photo-divider-2">
     <div class="photo-divider-inner">
       <div style="color: var(--text-muted); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;">
-        [ Replace with your landscape photo ]
+        <img class="photo-placeholder" src="images/big_sur.png" alt="Big sur" />
       </div>
     </div>
     <div class="photo-divider-overlay"></div>
-    <p class="photo-caption">Pacific Coast, California</p>
+    <p class="photo-caption">Big Sur, California</p>
   </div>
 
   <!-- CONTACT -->
   <section id="contact" class="contact-section">
-    <h2 class="contact-heading reveal">Let's build<br /><em>something</em></h2>
+    <h2 class="contact-heading reveal"><br /><em>Get in touch</em></h2>
     <p class="contact-sub reveal">
       I am actively looking for junior software developer roles. 
-      If you have something interesting, I would love to hear about it.
+      If you have something interesting, I would love to connect.
     </p>
     <div class="contact-links reveal">
       <a href="mailto:ufoley95@gmail.com" class="contact-link">
@@ -822,20 +979,91 @@
   </footer>
 
   <script>
-    // Scroll reveal
+    // ---- SCROLL REVEAL ----
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, i * 80);
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
           observer.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
     reveals.forEach(el => observer.observe(el));
+
+    // ---- LIGHTBOX ----
+    // Define your images here. Each project has an array of { src, caption } objects.
+    // Replace the src paths with your actual image filenames in your /images/ folder.
+    const galleries = {
+      honeycomb: [
+        { src: 'images/image1.png', caption: 'Honeycomb — Dashboard view' },
+        { src: 'images/image2.png', caption: 'Honeycomb — Savings view' },
+        { src: 'images/image3.png', caption: 'Honeycomb — Spending trend' },
+        { src: 'images/image4.png', caption: 'Honeycomb — Spending trend' },
+        { src: 'images/image5.png', caption: 'Honeycomb — Spending trend' },
+        { src: 'images/image6.png', caption: 'Honeycomb — Spending trend' },
+      ],
+      recipe: [
+        { src: 'images/home_page.png', caption: 'Recipe Management — Home' },
+        { src: 'images/recipe.png', caption: 'Recipe Management — Recipe view' },
+        { src: 'images/ingredients.png', caption: 'Recipe Management — Select ingredients' },
+        { src: 'images/pantry.png', caption: 'Recipe Management — Pantry contents' },
+      ],
+      wildfire: [
+        { src: 'images/gis_fire_image.png', caption: 'Wildfire — GIS map with fire pixels' },
+        { src: 'images/converted_fire_image.png', caption: 'Wildfire — Rasterized fire imagery' },
+        { src: 'images/vegetation_image.png', caption: 'Wildfire — NDVI vegetation data' },
+        { src: 'images/prediction_v_ground_truth_2.png', caption: 'Wildfire — Prediction vs ground truth' },
+      ],
+    };
+
+    let currentGallery = [];
+    let currentIndex = 0;
+
+    function openLightbox(project) {
+      currentGallery = galleries[project];
+      currentIndex = 0;
+      showImage();
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function showImage() {
+      const item = currentGallery[currentIndex];
+      document.getElementById('lightbox-img').src = item.src;
+      document.getElementById('lightbox-img').alt = item.caption;
+      document.getElementById('lightbox-caption').textContent = item.caption;
+      document.getElementById('lightbox-counter').textContent =
+        `${currentIndex + 1} / ${currentGallery.length}`;
+    }
+
+    function nextImage() {
+      currentIndex = (currentIndex + 1) % currentGallery.length;
+      showImage();
+    }
+
+    function prevImage() {
+      currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+      showImage();
+    }
+
+    function handleLightboxClick(e) {
+      if (e.target.id === 'lightbox') closeLightbox();
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      const lb = document.getElementById('lightbox');
+      if (!lb.classList.contains('active')) return;
+      if (e.key === 'ArrowRight') nextImage();
+      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === 'Escape') closeLightbox();
+    });
   </script>
 
 </body>
