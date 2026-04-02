@@ -281,7 +281,7 @@
 
     /* ---- SECTIONS ---- */
     section {
-      padding: 6rem 3rem;
+      padding: 3rem 3rem;
       max-width: 1100px;
       margin: 0 auto;
     }
@@ -320,7 +320,6 @@
       font-weight: 300;
       line-height: 1.15;
       letter-spacing: -0.01em;
-      margin-bottom: 2rem;
     }
 
     .about-heading em {
@@ -353,8 +352,13 @@
       border-right: 1px solid var(--border);
     }
 
-    .skill-category:nth-child(even) { border-right: none; }
-    .skill-category:nth-last-child(-n+2) { border-bottom: none; }
+    .skill-category:nth-child(2) { border-right: none; }
+    .skill-category:nth-child(4) { border-right: none; }
+    .skill-category:last-child {
+      grid-column: 1 / -1;
+      border-right: none;
+      border-bottom: none;
+    }
 
     .skill-cat-label {
       font-size: 10px;
@@ -416,8 +420,8 @@
 
     .preview-placeholder {
       width: 100%;
-      max-height: 200px;
-      min-height: 200px;
+      /* max-height: 200px;
+      min-height: 200px; */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -548,7 +552,7 @@
     .lightbox-close:hover { color: var(--accent); }
 
     .lightbox-caption {
-      font-size: 11px;
+      font-size: 15px;
       letter-spacing: 0.1em;
       color: var(--text-muted);
       font-family: var(--serif);
@@ -761,7 +765,6 @@
   </div>
 
   <!-- PHOTO DIVIDER 1 -->
-  <!-- Replace the div below with: <img class="photo-placeholder" src="your-landscape-photo.jpg" alt="Landscape photo" /> -->
   <div class="photo-divider">
     <div class="photo-divider-inner">
       <div style="color: var(--text-muted); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;">
@@ -769,7 +772,7 @@
       </div>
     </div>
     <div class="photo-divider-overlay"></div>
-    <p class="photo-caption">Tonquin Beach, British Columbia</p>
+    <p class="photo-caption">Tonquin Beach, Vancouver Island</p>
   </div>
 
   <!-- ABOUT -->
@@ -782,7 +785,7 @@
           I'm a <strong>recent Computer Science graduate from Cal Poly Pomona</strong> 
           with a 3.95 GPA, and an unconventional path to get here. I spent seven years 
           as a licensed conductor and engineer at <strong>Union Pacific Railroad</strong>, 
-          leading crews responsible for moving millions of dollars in freight daily.
+          leading crews responsible for moving millions of dollars in freight across Southern California.
         </p>
         <p class="about-text reveal">
           I made a deliberate choice to leave that career and pursue software development 
@@ -790,7 +793,7 @@
           things break, and I see projects through.
         </p>
         <p class="about-text reveal">
-          I have shipped a <strong>published iOS app</strong>, deployed a 
+          I have <strong>published an iOS app</strong>, deployed a 
           <strong>web application to production on AWS</strong>, and built a 
           <strong>deep learning pipeline</strong> for wildfire prediction. 
           I'm looking for a junior role where I can keep growing fast.
@@ -800,7 +803,7 @@
         <div class="skills-grid">
           <div class="skill-category">
             <p class="skill-cat-label">Languages</p>
-            <p class="skill-items">Python · Dart · SQL<br />JavaScript · TypeScript · C++</p>
+            <p class="skill-items">Python · C++ · SQL<br />JavaScript · TypeScript · Dart</p>
           </div>
           <div class="skill-category">
             <p class="skill-cat-label">Backend</p>
@@ -830,11 +833,6 @@
     <!-- Project 1: Honeycomb -->
     <div class="project-card reveal">
       <div class="project-screenshots" onclick="openLightbox('honeycomb')">
-        <!--
-          TO ADD YOUR PREVIEW IMAGE:
-          Replace the .preview-placeholder div with:
-          <img class="project-preview" src="images/honeycomb-1.png" alt="Honeycomb app" />
-        -->
         <img class="project-preview" src="images/honeycomb_logo.png" alt="Honeycomb app" />
         <div class="view-gallery-hint">View Gallery</div>
         <div class="photo-count-badge">6 photos</div>
@@ -854,22 +852,14 @@
           <span class="tag">CloudKit</span>
           <span class="tag">Figma</span>
         </div>
-        <a href="https://github.com/uuriah" class="project-link">View on GitHub</a>
+        <a href="https://github.com/uuriah/budget_app" class="project-link">View on GitHub</a>
       </div>
     </div>
 
     <!-- Project 2: Recipe -->
     <div class="project-card reverse reveal">
       <div class="project-screenshots" onclick="openLightbox('recipe')">
-        <!--
-          TO ADD YOUR PREVIEW IMAGE:
-          Replace the .preview-placeholder div with:
-          <img class="project-preview" src="images/recipe-1.png" alt="Recipe site" />
-        -->
-        <div class="preview-placeholder">
-          <span>Add preview image</span>
-          <span style="font-size:9px; opacity:0.5">recipe-1.png</span>
-        </div>
+        <img class="project-preview" src="images/fridge.png" alt="Stocked fridge" />
         <div class="view-gallery-hint">View Gallery</div>
         <div class="photo-count-badge">4 photos</div>
       </div>
@@ -895,15 +885,7 @@
     <!-- Project 3: Wildfire -->
     <div class="project-card reveal">
       <div class="project-screenshots" onclick="openLightbox('wildfire')">
-        <!--
-          TO ADD YOUR PREVIEW IMAGE:
-          Replace the .preview-placeholder div with:
-          <img class="project-preview" src="images/wildfire-1.png" alt="Wildfire model" />
-        -->
-        <div class="preview-placeholder">
-          <span>Add preview image</span>
-          <span style="font-size:9px; opacity:0.5">wildfire-1.png</span>
-        </div>
+        <img class="project-preview" src="images/gis_cropped.png" alt="GIS fire map" />
         <div class="view-gallery-hint">View Gallery</div>
         <div class="photo-count-badge">4 photos</div>
       </div>
@@ -992,16 +974,14 @@
     reveals.forEach(el => observer.observe(el));
 
     // ---- LIGHTBOX ----
-    // Define your images here. Each project has an array of { src, caption } objects.
-    // Replace the src paths with your actual image filenames in your /images/ folder.
     const galleries = {
       honeycomb: [
         { src: 'images/image1.png', caption: 'Honeycomb — Dashboard view' },
-        { src: 'images/image2.png', caption: 'Honeycomb — Savings view' },
-        { src: 'images/image3.png', caption: 'Honeycomb — Spending trend' },
-        { src: 'images/image4.png', caption: 'Honeycomb — Spending trend' },
-        { src: 'images/image5.png', caption: 'Honeycomb — Spending trend' },
-        { src: 'images/image6.png', caption: 'Honeycomb — Spending trend' },
+        { src: 'images/image2.png', caption: 'Honeycomb — Spendting trend' },
+        { src: 'images/image3.png', caption: 'Honeycomb — Savings view' },
+        { src: 'images/image4.png', caption: 'Honeycomb — Transactions view' },
+        { src: 'images/image5.png', caption: 'Honeycomb — Recurring payments view' },
+        { src: 'images/image6.png', caption: 'Honeycomb — Light & Dark mode display' },
       ],
       recipe: [
         { src: 'images/home_page.png', caption: 'Recipe Management — Home' },
